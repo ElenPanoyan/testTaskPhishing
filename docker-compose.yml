@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  management-backend:
+    build: ./management-backend
+    container_name: management-backend
+    depends_on:
+      - mongodb
+      - phishing-backend
+    env_file:
+      - ./management-backend/.env
+    ports:
+      - "8787:8787"
+    networks:
+      - phishing-network
+
+  phishing-backend:
+    build: ./phishing-backend
+    container_name: phishing-backend
+    depends_on:
+      - mongodb
+    env_file:
+      - ./phishing-backend/.env
+    ports:
+      - "8788:8788"
+    networks:
+      - phishing-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "3000:80"
+    depends_on:
+      - management-backend
+    networks:
+      - phishing-network
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo_data:/data/db
+    networks:
+      - phishing-network
+
+networks:
+  phishing-network:
+    driver: bridge
+
+volumes:
+  mongo_data:

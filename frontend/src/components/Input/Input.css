@@ -1,0 +1,212 @@
+.input_wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Label Styles */
+.label {
+  display: block;
+  color: #e2e8f0;
+  margin-bottom: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Input Container Box */
+.box {
+  position: relative;
+  border-radius: 12px;
+  background: #1e293b;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border: 1.5px solid #334155;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.box:hover:not(.box__disabled) {
+  border-color: #475569;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.box__focused {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.box__error {
+  border-color: #e53e3e;
+}
+
+.box__error.box__focused {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.box__disabled {
+  background-color: #1e293b;
+  border-color: #334155;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Icon Wrapper */
+.icon_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.box__focused .icon {
+  color: #4a90e2;
+}
+
+.box__error .icon {
+  color: #e53e3e;
+}
+
+/* Input Field */
+.input {
+  width: 100%;
+  height: 48px;
+  appearance: none;
+  outline: none;
+  padding: 0 16px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  transition: all 0.2s ease;
+}
+
+.input__icon {
+  padding-left: 8px;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  color: #8793a0;
+}
+
+.input:disabled::placeholder {
+  color: #cbd5e0;
+}
+
+.input__focused::placeholder {
+  color: #cbd5e0;
+}
+
+/* Password Toggle Button */
+.password_toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border: none;
+  background-color: transparent !important;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  color: #94a3b8;
+}
+
+.password_toggle:hover {
+  color: #cbd5e0;
+  transform: scale(1.05);
+}
+
+.password_toggle:active {
+  transform: scale(0.95);
+}
+
+.password_toggle:focus-visible {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.password_toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease;
+}
+
+.password_toggle svg path {
+  fill: currentColor;
+  transition: fill 0.2s ease;
+}
+
+.password_toggle__active {
+  color: #4a90e2;
+}
+
+.box__focused .password_toggle {
+  color: #4a90e2;
+}
+
+/* Error Message */
+.error_message {
+  display: block;
+  color: #e53e3e;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  margin-top: -4px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus visible for accessibility */
+.input:focus-visible {
+  outline: none;
+}
+
+.box:focus-within {
+  outline: none;
+}
+
+/* Remove autofill background */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1e293b inset;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+}
