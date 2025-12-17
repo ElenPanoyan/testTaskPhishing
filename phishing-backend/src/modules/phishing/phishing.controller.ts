@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { PhishingService } from './phishing.service';
 import { ApiTags } from '@nestjs/swagger';
-import {SendPhishingDto} from "./dtos/send-phishing.dto";
+import { SendPhishingDto } from './dtos/send-phishing.dto';
+import { JwtPhishingGuard } from './guards/jwt-phishing.guard';
 
 @ApiTags('Phishing')
 @Controller('phishing')
@@ -14,8 +15,9 @@ export class PhishingController {
     }
 
     @Get('attempt')
-    async markClick(@Query('email') email: string) {
-        return this.phishingService.markAttemptAsClicked(email);
+    @UseGuards(JwtPhishingGuard)
+    async markClick(@Req() req: { phishingPayload: { email: string } }) {
+        return this.phishingService.markAttemptAsClicked(req.phishingPayload.email);
     }
 
     @Get('attempts')
@@ -23,4 +25,3 @@ export class PhishingController {
         return this.phishingService.getAllAttempts();
     }
 }
-

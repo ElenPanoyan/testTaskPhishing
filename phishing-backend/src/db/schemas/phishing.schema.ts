@@ -1,6 +1,12 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export enum PhishingStatus {
+    PENDING = 'pending',
+    CLICKED = 'clicked',
+    EXPIRED = 'expired',
+}
+
 export type TPhishingDoc = Phishing & Document;
 
 @Schema({
@@ -13,9 +19,8 @@ export class Phishing extends Document {
     @Prop()
     content: string;
 
-    @Prop({ default: 'pending' })
-    status: string;
+    @Prop({ default: PhishingStatus.PENDING, enum: PhishingStatus })
+    status: PhishingStatus;
 }
 
 export const PhishingSchema = SchemaFactory.createForClass(Phishing);
-

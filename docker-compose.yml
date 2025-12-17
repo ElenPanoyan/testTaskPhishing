@@ -21,6 +21,8 @@ services:
       - mongodb
     env_file:
       - ./phishing-backend/.env
+    environment:
+      - JWT_SECRET=your-secret-key-change-in-production
     ports:
       - "8788:8788"
     networks:
